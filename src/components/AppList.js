@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
+import InputForm from './InputForm';
 
 const dapps = [
   {
@@ -48,8 +49,19 @@ const dapps = [
 ];
 
 const AppList = () => {
+  const [submitFormVisible, setSubmitFormVisible] = useState(false);
   return (
     <div className="p-4">
+      {submitFormVisible ? (
+        <InputForm />
+      ) : (
+        <button
+          className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 "
+          onClick={() => setSubmitFormVisible(!submitFormVisible)}
+        >
+          Submit a DApp
+        </button>
+      )}
       <h1 className="text-3xl font-extrabold mb-4">Solana DApps List</h1>
       {dapps.map((dapp, dappIndex) => (
         <div key={dappIndex} className="p-4 rounded my-4 bg-white">
