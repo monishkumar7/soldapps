@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { FiExternalLink } from 'react-icons/fi';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
+
 import InputForm from './InputForm';
 
 const dapps = [
@@ -38,32 +40,44 @@ const dapps = [
     description: 'Fantasy sports platform',
     category: 'gaming',
     votes: '2'
-  },
-  {
-    name: 'Phantasia',
-    url: 'phantasia.com',
-    description: 'Fantasy sports platform',
-    category: 'gaming',
-    votes: '2'
   }
 ];
 
-const AppList = () => {
+const AppList = ({ walletAddress }) => {
   const [submitFormVisible, setSubmitFormVisible] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [dAppsList, setDAppsList] = useState([]);
+
+  const submitDApp = async (values) => {
+    setDAppsList([...dAppsList, values]);
+    if (values.submitted) {
+      setSubmitFormVisible(false);
+      setSubmitSuccess(true);
+      toast.success('DApp submitted successfully!');
+    }
+  };
+
+  useEffect(() => {
+    if (walletAddress) {
+      setDAppsList(dapps);
+    }
+  }, [walletAddress]);
+
   return (
     <div className="p-4">
+      <Toaster />
       {submitFormVisible ? (
-        <InputForm />
+        <InputForm submitDApp={(values) => submitDApp(values)} />
       ) : (
         <button
-          className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 "
+          className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 mt-2 mb-8"
           onClick={() => setSubmitFormVisible(!submitFormVisible)}
         >
-          Submit a DApp
+          Submit {submitSuccess ? 'another' : 'a'} DApp
         </button>
       )}
       <h1 className="text-3xl font-extrabold mb-4">Solana DApps List</h1>
-      {dapps.map((dapp, dappIndex) => (
+      {dAppsList.map((dapp, dappIndex) => (
         <div key={dappIndex} className="p-4 rounded my-4 bg-white">
           <div className="flex justify-between mb-2">
             <div className="flex">

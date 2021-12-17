@@ -53,7 +53,7 @@ const App = () => {
       <div className="max-w-prose mx-auto min-h-screen flex flex-col justify-between">
         <Header walletAddress={walletAddress} />
         {walletAddress ? (
-          <AppList />
+          <AppList walletAddress={walletAddress} />
         ) : (
           <ConnectWallet handler={() => connectWallet()} />
         )}

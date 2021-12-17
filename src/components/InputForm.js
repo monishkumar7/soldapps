@@ -23,8 +23,30 @@ const MyTextInput = ({ label, ...props }) => {
     </div>
   );
 };
-//change category to dropdown box
-const InputForm = () => {
+
+const MySelect = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="my-2 flex flex-col">
+      <label
+        className="uppercase text-gray-400 text-sm font-semibold tracking-wider"
+        htmlFor={props.id || props.name}
+      >
+        {label}
+      </label>
+      <select
+        className="border border-gray-100 p-2 focus-visible:outline-none rounded-md shadow-md"
+        {...field}
+        {...props}
+      />
+      <div className="text-sm italic text-red-500 text-right h-4">
+        {meta.touched && meta.error ? meta.error : null}
+      </div>
+    </div>
+  );
+};
+
+const InputForm = ({ submitDApp }) => {
   return (
     <Formik
       initialValues={{
@@ -45,11 +67,8 @@ const InputForm = () => {
           .max(20, 'Must be 20 characters or less')
           .required('Required')
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={(values) => {
+        submitDApp({ ...values, submitted: true });
       }}
     >
       <Form className="my-8">
@@ -72,12 +91,14 @@ const InputForm = () => {
           type="text"
           placeholder="What does the DApp do?"
         />
-        <MyTextInput
-          label="Category"
-          name="category"
-          type="text"
-          placeholder="What category does the DApp belong to?"
-        />
+        <MySelect label="Category" name="category">
+          <option value="">Select a DApp category</option>
+          <option value="social">Social</option>
+          <option value="utility">Utility</option>
+          <option value="defi">DeFi</option>
+          <option value="nft">NFT</option>
+          <option value="gaming">Gaming</option>
+        </MySelect>
         <button
           className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 "
           type="submit"
