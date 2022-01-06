@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BsWallet } from 'react-icons/bs';
+import { AiOutlineDisconnect } from 'react-icons/ai';
 
 const Header = ({ walletAddress, disconnectWallet }) => {
   const [showDisconnect, setShowDisconnect] = useState(false);
@@ -15,30 +16,33 @@ const Header = ({ walletAddress, disconnectWallet }) => {
     <div className="p-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">SolDApps</h1>
-        <div
-          className="bg-purple-300 p-2 rounded-md flex items-center"
-          onClick={() => toggleDisconnect()}
-        >
-          {walletAddress && (
-            <p className="mr-2">
-              {walletAddress.substring(0, 4) +
-                '....' +
-                walletAddress.substring(walletAddress.length - 4)}
-            </p>
+        <div className="flex items-center justify-between space-x-4">
+          <div
+            className="bg-purple-300 p-2 rounded-md flex items-center"
+            onClick={() => toggleDisconnect()}
+          >
+            {walletAddress && (
+              <p className="mr-2">
+                {walletAddress.substring(0, 4) +
+                  '....' +
+                  walletAddress.substring(walletAddress.length - 4)}
+              </p>
+            )}
+            <BsWallet />
+          </div>
+          {walletAddress && showDisconnect && (
+            <div className="flex justify-end">
+              <button
+                className="border-red-400 text-red-600 rounded-md py-1.5 px-4 border-2 hover:text-white hover:bg-red-400 flex justify-between items-center"
+                onClick={() => disconnectButtonHandler()}
+              >
+                <AiOutlineDisconnect className="mr-2 h-6 w-6" />
+                Disconnect Wallet
+              </button>
+            </div>
           )}
-          <BsWallet />
         </div>
       </div>
-      {walletAddress && showDisconnect && (
-        <div className="flex justify-end my-2">
-          <button
-            className="border-purple-600 text-purple-600 rounded-md p-2 border-2 hover:text-white hover:bg-purple-600"
-            onClick={() => disconnectButtonHandler()}
-          >
-            Disconnect Wallet
-          </button>
-        </div>
-      )}
     </div>
   );
 };
