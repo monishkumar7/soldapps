@@ -46,7 +46,7 @@ const MySelect = ({ label, ...props }) => {
   );
 };
 
-const InputForm = ({ submitDApp }) => {
+const InputForm = ({ submitProject }) => {
   return (
     <Formik
       initialValues={{
@@ -68,7 +68,7 @@ const InputForm = ({ submitDApp }) => {
           .required('Required')
       })}
       onSubmit={(values) => {
-        submitDApp({ ...values, submitted: true });
+        submitProject({ ...values, submitted: true });
       }}
     >
       <Form className="my-8">
@@ -100,10 +100,10 @@ const InputForm = ({ submitDApp }) => {
           <option value="gaming">Gaming</option>
         </MySelect>
         <button
-          className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 "
+          className="bg-purple-600 text-white font-semibold w-full rounded-md p-2 mt-8"
           type="submit"
         >
-          Submit
+          Submit DApp
         </button>
       </Form>
     </Formik>
