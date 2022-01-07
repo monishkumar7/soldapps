@@ -84,6 +84,8 @@ const AppList = ({ projectList, sendProject, loading }) => {
                     <a
                       href={project.projectLink}
                       className="text-gray-500 hover:text-purple-600 flex items-center"
+                      target={'_blank'}
+                      nofollow
                     >
                       <FiExternalLink className="inline w-3 h-3 mr-1 text-gray-400" />
                       {project.projectLink}
