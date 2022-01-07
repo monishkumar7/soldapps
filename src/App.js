@@ -59,6 +59,7 @@ const App = () => {
       const response = await solana.connect();
       console.log('Connected with public key', response.publicKey.toString());
       setWalletAddress(response.publicKey.toString());
+      toast.success('Wallet connected successfully!');
     }
   };
 
@@ -104,7 +105,7 @@ const App = () => {
       );
 
       console.log('Got the account', account);
-      setProjectList(account.projectList);
+      setProjectList(account.projectList.reverse());
       setLoading(false);
     } catch (error) {
       console.log('Error in getProjectList: ', error);
@@ -132,7 +133,7 @@ const App = () => {
 
       console.log('Project successfully sent to Solana Program', values);
       setLoading(false);
-      toast.success('Project submitted successfully!');
+      toast.success('DApp submitted successfully!');
       await getProjectList();
     } catch (error) {
       console.log('Error in sendProject: ', error);
@@ -145,6 +146,9 @@ const App = () => {
     solana.disconnect();
     setWalletAddress(null);
     console.log('Disconnected Wallet successfully');
+    toast('Wallet disconnected successfully!', {
+      icon: '👏'
+    });
   };
 
   useEffect(() => {
@@ -175,7 +179,7 @@ const App = () => {
           </button>
         ) : null}
 
-        <Toaster />
+        <Toaster position="top-right" />
         {walletAddress ? (
           <AppList
             projectList={projectList}
