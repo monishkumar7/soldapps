@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ConnectWallet from './components/ConnectWallet';
 import AppList from './components/AppList';
+import HowTo from './components/HowTo';
 
 const { SystemProgram } = web3;
 
@@ -189,6 +190,7 @@ const App = () => {
         ) : (
           <ConnectWallet handler={() => connectWallet()} />
         )}
+        <HowTo />
         <Footer />
       </div>
     </div>

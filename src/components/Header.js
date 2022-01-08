@@ -15,7 +15,10 @@ const Header = ({ walletAddress, disconnectWallet }) => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">SolDApps</h1>
+        <h1 className="text-2xl font-bold">
+          SolDApps{' '}
+          <span className="text-sm font-normal">(Works only on devnet*)</span>
+        </h1>
         <div className="flex items-center justify-between space-x-4">
           <div
             className="bg-purple-300 p-2 rounded-md flex items-center"

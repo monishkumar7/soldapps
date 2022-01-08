@@ -86,6 +86,7 @@ const AppList = ({ projectList, sendProject, loading }) => {
                       className="text-gray-500 hover:text-purple-600 flex items-center"
                       target={'_blank'}
                       nofollow
+                      rel="noreferrer"
                     >
                       <FiExternalLink className="inline w-3 h-3 mr-1 text-gray-400" />
                       {project.projectLink}
